@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; line-height: 1.8; }
+        .app-container { max-width: 850px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .dropdown { padding: 5px; border: 2px solid #2980b9; border-radius: 4px; font-weight: bold; }
+        .btn-check { margin-top: 20px; padding: 12px 25px; background: #2c3e50; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h2>Australian Career Integration & Visa Strategy</h2>
+    <div id="para-container"></div>
+    <button class="btn-check" onclick="checkAll()">Analyze Migration Narrative</button>
+    <div id="result" style="margin-top: 20px; font-weight: bold;"></div>
+</div>
+
+<script>
+const narratives = [
+    {
+        title: "1. Destination Choice: Sydney/Melbourne Healthcare",
+        text: "My strategic target for professional migration is the metropolitan healthcare corridor of Sydney and Melbourne. [1] I seek to leverage the high demand for specialized nursing, I am targeting facilities that offer 482 Visa sponsorship. [2] I position myself within these major hubs, I can engage with the most advanced clinical training and AHPRA-accredited environments. [3] the competitive nature of these urban markets, I am confident that my cruise-industry resilience and floor management expertise provide a distinct competitive advantage. [4] my specialized operational background, I offer a unique readiness to handle the high-acuity demands of inner-city hospitals. [5] I am committed to contributing to the long-term clinical excellence of these world-class healthcare systems.",
+        options: [["Insofar as", "Finally"], ["Whereby", "Because"], ["Notwithstanding", "However"], ["By virtue of", "Therefore"], ["Concurrently", "Additionally"]],
+        ans: [0, 0, 0, 0, 1]
+    },
+    {
+        title: "2. Visa Pathway & Sponsorship Alignment",
+        text: "Securing a formal sponsorship through the Temporary Skill Shortage (TSS) 482 visa is the primary pillar of my migration strategy. [1] I align my floor management credentials with the Australian Skilled Occupation List, I facilitate a streamlined path for potential employers to sponsor my role. [2] I execute my visa application, I ensure full transparency regarding my clinical competency and international sanitation standards. [3] the administrative rigor required by the Department of Home Affairs, I view the process as a vital verification of my professional commitment. [4] this methodical approach to sponsorship, I minimize project risks for the host facility. [5] I aim to achieve permanent residency by demonstrating sustained professional value.",
+        options: [["Insofar as", "While"], ["Whereby", "Similarly"], ["Notwithstanding", "Insofar as"], ["By virtue of", "Additionally"], ["Concurrently", "Finally"]],
+        ans: [1, 0, 0, 0, 1]
+    },
+    {
+        title: "3. Career Value in the Australian Hospitality Sector",
+        text: "I am targeting premium hospitality management roles in the Gold Coast and Brisbane regions. [1] I demonstrate my expertise in high-volume floor management, I offer property owners a robust solution for maintaining luxury standards. [2] I translate my maritime safety training, I enhance the WHS (Workplace Health and Safety) maturity of the property’s housekeeping team. [3] the seasonal fluctuations in tourism, I maintain a consistent, high-standard output that drives guest loyalty. [4] my diverse international experience, I bring a unique service-scalability model that is ideal for expanding Australian resort groups. [5] I am ready to serve as a pivotal member of a dedicated hospitality leadership team.",
+        options: [["Insofar as", "Finally"], ["Whereby", "Additionally"], ["Notwithstanding", "However"], ["By virtue of", "Concurrently"], ["Concurrently", "Finally"]],
+        ans: [0, 0, 0, 0, 1]
+    }
+];
+
+function render() {
+    let html = "";
+    narratives.forEach((n, i) => {
+        html += `<h3>${n.title}</h3><p>${n.text.replace(/\[\d\]/g, (match) => {
+            let idx = parseInt(match[1]) - 1;
+            let opts = n.options[idx].map((o, optIdx) => `<option value="${optIdx}">${o}</option>`).join('');
+            return `<select id="s${i}_${idx}" class="dropdown"><option>Select...</option>${opts}</select>`;
+        })}</p>`;
+    });
+    document.getElementById('para-container').innerHTML = html;
+}
+
+function checkAll() {
+    let total = 0;
+    narratives.forEach((n, i) => {
+        n.options.forEach((_, idx) => {
+            if(document.getElementById(`s${i}_${idx}`).value == n.ans[idx]) total++;
+        });
+    });
+    document.getElementById('result').innerText = `Your Score: ${total}/15. ${total === 15 ? "Australian Strategy Mastered." : "Review: Australian integration requires connecting your past 'High-Volume' experience (Carnival) to their 'High-Standard' clinical and hospitality systems."}`;
+}
+render();
+</script>
+</body>
+</html>
